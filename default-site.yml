@@ -1,0 +1,19 @@
+---
+site:
+  title: ""
+  start_page: modules::index.adoc
+
+content:
+  sources:
+    - url: .
+      start_path: content
+
+ui:
+  bundle:
+    url: https://github.com/rhpds/rhdp_showroom_theme/releases/download/v0.0.1/ui-bundle.zip
+
+runtime:
+  cache_dir: ./.cache
+
+output:
+  dir: ./www
