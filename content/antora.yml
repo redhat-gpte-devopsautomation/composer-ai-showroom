@@ -1,15 +1,13 @@
 name: modules
-title: Default Title
+title: Composer AI
 version: main
 nav:
   - modules/ROOT/nav.adoc
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
-    page-pagination: true
-    my_var: "foo"
-    guid: my-guid
-    ssh_user: devops
-    ssh_password: devops
-    ssh_command: ssh devops@bastion.{guid}.example.opentlc.com
+    openshift_api_url: https://api.cluster-guid.guid.sandbox.opentlc.com:6443
+    openshift_cluster_ingress_domain: apps.cluster-guid.guid.sandbox.opentlc.com
+    openshift_cluster_console_url: https://console-openshift-console.apps.cluster-guid.guid.sandbox.opentlc.com
+    openshift_cluster_admin_username: username
+    openshift_cluster_admin_password: password
