@@ -1,4 +1,5 @@
 * xref:01-setup.adoc[1. Setup]
-* xref:02-rag.adoc[2. RAG]
-* xref:03-chatbot.adoc[3. Chatbot]
-* xref:04-rhelai.adoc[4. RHEL AI]
+* xref:02-vllm.adoc[2. vLLM]
+* xref:03-elasticsearch.adoc[3. Elasticsearch]
+* xref:04-assistant.adoc[4. Assistant]
+* xref:05-diy.adoc[5. (Optional) Find your own doc)]
