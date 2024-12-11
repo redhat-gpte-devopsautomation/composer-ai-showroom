@@ -1,0 +1,9 @@
+= Deploying Vector Database with Elasticsearch
+
+== Deploying Elasticsearch Instance
+
+# Instructions for deploying Elasticsearch instance
+
+== Populating Vector Database
+
+# Instructions for executing the ingestion pipeline

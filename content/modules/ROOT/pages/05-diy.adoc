@@ -1,0 +1,5 @@
+= (Optional) Try Your Own Document
+
+Find your own document and process it with the ingestion pipeline.
+
+Create an assistant using your document and use the assistant to ask it a few questions.

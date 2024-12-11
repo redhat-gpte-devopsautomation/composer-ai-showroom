@@ -1,3 +1,0 @@
-= RHEL AI
-
-This is the OpenShift apps domain: {openshift_cluster_ingress_domain}

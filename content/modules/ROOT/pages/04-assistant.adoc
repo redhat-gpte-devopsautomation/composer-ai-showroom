@@ -1,0 +1,9 @@
+= Creating An AI Assistant
+
+== Creating Assistant
+
+# Instructions for creating an AI Assistant
+
+== Testing Assistant
+
+# Instructions for testing assistant and comparing to default assistant

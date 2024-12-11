@@ -1,3 +1,5 @@
 = Setup Environment
 
 This is the OpenShift apps domain: {openshift_cluster_ingress_domain}
+
+# Review of the environment and what is currently deployed
