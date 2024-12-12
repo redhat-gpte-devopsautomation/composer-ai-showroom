@@ -1,0 +1,53 @@
+= Retrieval-Augmented Generation (RAG)
+
+== RAG Assistants
+
+Up until this point the Assistants that we have created use simple prompt engineering in order to help the LLM return a more relevant answer. But the use of RAG is a very powerful tool when it comes to getting relevant information for a customer. RAG allows us to grab information relevant to our users request from an external data source and include it in what is being sent to the LLM.
+
+This could be used to feed the LLM more relevant information about the topic to the LLM allowing it to return a much more focused response. Or it can event be used to send non-public information, allowing our model to create reports on data it was never trained on. This is the real power of RAG and also why security is such a primary concern when it comes to deploying our services on our clients.
+
++
+TIP: While Vector Databases are probably the most popular Data Source when it comes to RAG, there are many other options such as Graph DBs. At the end of the day we can augment our prompt information with just about any datasource.
+
+== Creating a RAG Assistant
+
+You may have noticed in our previous assistant creation we ignored the "Knowledge source" section. This section contains our `RetrieverConnections` which resent the connections to our RAG data sources.
+
+We will be using the RetrieverConnection(Knowledge Source) created in the [elastic section](03-elasticsearch.adoc).
+
+. Create a new Assistant with the following properties:
+
++
+[source,properties]
+----
+Name: email_summary_assistant_rag
+Display Name: Email Summary Assistant RAG
+Knowledge Source: Openshift Container Platform Default Connection
+Model: Default LLM Connection
+----
+
++
+TIP: If you had any issues ingesting data we have provided a `Openshift Container Platform Default Connection (CENTRAL)` that can be used
+
+. For our Prompt Copy and Paste the prompt from the previous page.
+
+. Create Assistant
+
+=== Testing RAG Assistant
+
+Lets test this assistant a little differently than the previous ones. In the top right hand corner you will notice a `Compare` button, click that.
+
+Composer AI's compare functionality allows you to ask a single question while getting an answer from two assistants side by side. This is a great way to do some basic validations of Knowledge Sources and responses from different LLMs.
+
+. In our **right** window select "Email Summary Assistant Openshift"
+
+. In our **left** window select "Email Summary Assistant"
+
+. Ask a question relevant to Openshift while not indicating you are referring to Openshift
+
+  . **Recommended Questions**: "I understand you are having a problem creating a secret. Here is the command you should be using"
+
+Hopefully the Openshift Assistant creates an email with information relevant to your query. You will also notice a `Sources` info box in the bottom that includes links to the documentation that was ingested by the ElasticSearch pipeline.
+
++
+TIP: It helps if you are very specific with what you want to ask the LLM. Keep in mind our model is relatively small, and we did not spend a lot of time properly tuning our ingestion pipeline or our consumption.
