@@ -42,6 +42,7 @@ Our ingestion pipeline has minimal knowledge of the website being ingested, and 
 As we saw in a previous example a well crafted prompt can make a huge difference in the quality of the answer you receive.
 
 **Assistant Tuning:**
+
 Explore LLM settings (like temperature) and advanced techniques like reranking.
 
-[NOTE] Assistant tuning features are under development. And we are always looking for people to help https://github.com/redhat-composer-ai[contribute to our project].
+NOTE: Assistant tuning features are under development. And we are always looking for people to help https://github.com/redhat-composer-ai[contribute to our project].

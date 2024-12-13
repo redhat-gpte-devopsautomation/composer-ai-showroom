@@ -82,11 +82,3 @@ spec:
 == Testing vLLM Endpoints
 
 The vLLM instance may take a while to pull the model image and load it.  Feel free to move onto the next section and come back to test the endpoint once the vLLM instance is up and running.
-
-=== Testing vLLM Endpoint with a Notebook (Optional)
-
-# Instructions for testing vLLM endpoint via a notebook image
-
-=== Testing vLLM Endpoint
-
-# Instructions for chatting with the model using a basic non-rag assistant.
