@@ -77,13 +77,27 @@ This will install both the elasticsearch eck operator and the Elasticsearch Cust
 
 == Populating Vector Database
 
-Now that we have the elasticsearch cluster up and running, we must ingest documents into it.  This will allow us to create Retrieval Augemented Generation (RAG) based assistants that Composer AI can use.  
+Now that we have the elasticsearch cluster up and running, we must ingest documents into it.  This will allow us to create Retrieval Augmented Generation (RAG) based assistants that Composer AI can use.
+
+[NOTE]
+====
+For demonstration purposes we will be ingesting documentation for various Red Hat products.  However, it is import to keep in mind that basically any data source can be used in the context of RAG, including the live web.  If you have ever used the chatbot Perplexity AI, that is what it is doing behind the scenes. 
+
+====
 
 # Instructions for executing the ingestion pipeline
 
 To get you started, we have included an ingestion pipeline to populate the elasticsearch instance with information pulled from openshift documentation.  Go to pipelines in the composer-ai-apps namespaces.  Run the `ingestion-pipeline` pipeline with the default parameters.  Set the `source` workspace to the VolumeClaimTemplate option.  
 
+image::03-show-pipeline-1.png[Instantiate Template]
+
+image::03-show-pipeline-2.png[Instantiate Template]
+
 The progress can be viewed in the "Experiments and runs" section in the Openshift AI console.
+
+image::03-view-experiments.png[Instantiate Template]
+
+From here you can view the progress of the Kubeflow Pipeline (KFP), as well as the logs of individual steps, similar to Tekton.  
 
 
 
