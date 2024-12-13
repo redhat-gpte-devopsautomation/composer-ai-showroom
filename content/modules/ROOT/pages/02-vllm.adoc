@@ -19,15 +19,15 @@ Since we are using a ModelCar container to deploy our model instead of S3, we wi
 
 . To start, With the `redhat-ods-applications` namespace selected, navigate to Developer perspective in the OpenShift Web Console.  From the `+Add` page, select `All Services`.
 
-image::01-add-catalog.png[Add Catalog]
+image::02-add-catalog.png[Add Catalog]
 
 . Search for `vLLM` and select the `vLLM ServingRuntime for KServe` template
 
-image::01-select-template.png[Select Template]
+image::02-select-template.png[Select Template]
 
 . Choose to `Instantiate Template`.  Select the `composer-ai-apps` project and click `Create`
 
-image::01-instantiate-template.png[Instantiate Template]
+image::02-instantiate-template.png[Instantiate Template]
 
 The vLLM ServingRuntime for KServe `Template` is the same template that the OpenShift AI Dashboard uses when deploying a new instance.  Unlike the Dashboard though, the template with just create the `ServingRuntime` object and not the `InferenceService`.
 
