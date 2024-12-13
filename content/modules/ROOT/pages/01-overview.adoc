@@ -26,6 +26,28 @@ NOTE: The repo used to manage the cluster resources can be found https://github.
 
 == Composer AI Overview
 
+The cluster ArgoCD instance also creates two namespaces, `composer-ai-gitops` and `composer-ai-apps`.
 
+An ArgoCD instance deployed to `composer-ai-gitops` manages all of the resources that are deployed into the `composer-ai-apps`:
+
+image::01-composer-argo.png[Composer ArgoCD]
+
+Composer AI is intended to be a flexible architecture, that can leverage a number of different vector databases and models.
+
+image::01-composer-architecture.png[Composer Architecture]
+
+The current deployed applications include the following Composer components:
+
+* Chat UI with Composer Studio - A PatternFly based web UI designed to allow users to easily create new chat assistants and interact with existing assistants.
+* Conductor Microservice - A Quarkus based API that hosts the various assistants, which can leverage a RAG pattern with a vector database and various LLMs, and acts as a gateway for any chat application.
+* Document Ingestion Pipeline - A pipeline that allows users to ingest documents into a vector database using both Tekton and Data Science Pipelines
 
 image::01-composer-topology.png[Composer Topology]
+
+Our cluster does not currently have a model server or vector database deployed, which we will deploy as part of this lab.
+
+For our model server, we will be deploying a Granite model using OpenShift AI's vLLM.
+
+For our vector database, we will be deploying an Elasticsearch instance.
+
+Before proceeding, spend a few minutes to familiarize yourself with the various parts of this environment and what has already been deployed.
