@@ -1,5 +1,3 @@
 = (Optional) Try Your Own Document
 
-Find your own document and process it with the ingestion pipeline.
-
-Create an assistant using your document and use the assistant to ask it a few questions.
+One of the benefits of composer is how easy it is to ingest a new document and create an assistant for it.  Now that you have walked through the process, find your own document, ingest it with the ingestion pipeline and create a new assistant to ask it a few questions.
