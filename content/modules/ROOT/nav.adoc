@@ -1,4 +1,4 @@
-* xref:01-setup.adoc[Setup]
+* xref:01-overview.adoc[Environment Overview]
 * xref:02-vllm.adoc[vLLM]
 * xref:03-elasticsearch.adoc[Elasticsearch]
 * xref:040-assistant.adoc[Assistant]
