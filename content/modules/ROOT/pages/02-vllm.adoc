@@ -76,6 +76,9 @@ spec:
         operator: Equal
 ----
 
+[start=5]
+. A new vLLM pod should be scheduled.  The container image may take some time to pull.  Feel free to move on to the next steps and keep an eye on the pod for it to successfully start.
+
 == Testing vLLM Endpoints
 
 # Instructions for testing vLLM endpoint via a notebook image
