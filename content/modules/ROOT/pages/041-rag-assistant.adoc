@@ -49,5 +49,4 @@ Composer AI's compare functionality allows you to ask a single question while ge
 
 Hopefully the Openshift Assistant creates an email with information relevant to your query. You will also notice a `Sources` info box in the bottom that includes links to the documentation that was ingested by the ElasticSearch pipeline.
 
-+
 TIP: It helps if you are very specific with what you want to ask the LLM. Keep in mind our model is relatively small, and we did not spend a lot of time properly tuning our ingestion pipeline or our consumption.
