@@ -38,9 +38,9 @@ image::01-composer-architecture.png[Composer Architecture]
 
 The current deployed applications include the following Composer components:
 
-* Chat UI with Composer Studio - A PatternFly based web UI designed to allow users to easily create new chat assistants and interact with existing assistants.
-* Conductor Microservice - A Quarkus based API that hosts the various assistants, which can leverage a RAG pattern with a vector database and various LLMs, and acts as a gateway for any chat application.
-* Document Ingestion Pipeline - A pipeline that allows users to ingest documents into a vector database using both Tekton and Data Science Pipelines
+* *Chat UI with Composer Studio* - A PatternFly based web UI designed to allow users to easily create new chat assistants and interact with existing assistants.
+* *Conductor Microservice* - A Quarkus based API that hosts the various assistants, which can leverage a RAG pattern with a vector database and various LLMs, and acts as a gateway for any chat application.
+* *Document Ingestion Pipeline* - A pipeline that allows users to ingest documents into a vector database using both Tekton and Data Science Pipelines
 
 image::01-composer-topology.png[Composer Topology]
 
