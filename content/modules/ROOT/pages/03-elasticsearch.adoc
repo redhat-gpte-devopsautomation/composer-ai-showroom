@@ -1,9 +1,89 @@
 = Deploying Vector Database with Elasticsearch
 
-== Deploying Elasticsearch Instance
+In this lab we will be using Elasticsearch for our vector database technology.  Elasticsearch can be deployed using the certified Elastic Cloud Kubernetes (ECK) operator in the openshift marketplace.  To install elasticsearch into your cluster, click the + in the top right hand corner and paste the following objects in and click Create.
 
-# Instructions for deploying Elasticsearch instance
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/node-selector: ""
+  labels:
+    openshift.io/cluster-monitoring: "true"
+  name: elastic-vectordb
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+  namespace: elastic-vectordb
+  labels:
+    app: "elasticsearch"
+spec:
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+    - config:
+        node.roles:
+          - master
+          - data
+        node.attr.attr_name: attr_value
+        node.store.allow_mmap: false
+      podTemplate:
+        metadata:
+          labels:
+            foo: bar
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                limits:
+                  cpu: 2
+                  memory: 4Gi
+                requests:
+                  cpu: 1
+                  memory: 4Gi
+      name: default
+      count: 3
+  version: 8.16.0
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: elasticsearch-eck-operator-certified
+  namespace: elastic-vectordb
+spec: {}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: elasticsearch-eck-operator-certified
+  namespace: elastic-vectordb
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: elasticsearch-eck-operator-certified
+  source: certified-operators
+  sourceNamespace: openshift-marketplace
+```
+
+// == Deploying Elasticsearch Instance
+
+// # Instructions for deploying Elasticsearch instance
+
+This will install both the elasticsearch eck operator and the Elasticsearch Custom resource.  
 
 == Populating Vector Database
 
+Now that we have the elasticsearch cluster up and running, we must ingest documents into it.  This will allow us to create Retrieval Augemented Generation (RAG) based assistants that Composer AI can use.  
+
 # Instructions for executing the ingestion pipeline
+
+To get you started, we have included an ingestion pipeline to populate the elasticsearch instance with information pulled from openshift documentation.  Go to pipelines in the composer-ai-apps namespaces.  Run the `ingestion-pipeline` pipeline with the default parameters.  Set the `source` workspace to the VolumeClaimTemplate option.  
+
+The progress can be viewed in the "Experiments and runs" section in the Openshift AI console.
+
+
+
