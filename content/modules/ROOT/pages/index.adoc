@@ -8,8 +8,8 @@ In this lab we will deploy an LLM, a vector database, ingest some documents, and
 
 Here are some important links to help you on your journey:
 
-* OpenShift Web Console: https://console-openshift-console.{openshift_cluster_ingress_domain}
-* OpenShift AI Dashboard: https://rhods-dashboard-redhat-ods-applications.{openshift_cluster_ingress_domain}
-* Cluster Scoped ArgoCD: https://openshift-gitops-server-openshift-gitops.{openshift_cluster_ingress_domain}
-* Composer AI ArgoCD: https://argocd-server-composer-ai-gitops.{openshift_cluster_ingress_domain}
-* Composer AI UI: http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}
+* https://console-openshift-console.{openshift_cluster_ingress_domain}[OpenShift Web Console] 
+* https://rhods-dashboard-redhat-ods-applications.{openshift_cluster_ingress_domain}[OpenShift AI Dashboard]
+* https://openshift-gitops-server-openshift-gitops.{openshift_cluster_ingress_domain}[Cluster Scoped ArgoCD]
+* https://argocd-server-composer-ai-gitops.{openshift_cluster_ingress_domain}[Composer AI ArgoCD]
+* http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI]
