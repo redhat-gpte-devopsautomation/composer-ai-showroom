@@ -1,8 +1,10 @@
 = Environment Overview
 
+In this section, we will review some of the components that are available in this cluster that we will use for this workshop.
+
 == Cluster Overview
 
-An OpenShift cluster with the following operators has been deployed:
+This OpenShift cluster with the following operators has been deployed:
 
 * OpenShift AI
 * OpenShift Service Mesh
@@ -18,10 +20,12 @@ All of the operators are deployed and managed by a central cluster ArgoCD instan
 
 image::01-cluster-argo.png[Cluster ArgoCD]
 
-This cluster is equipped with a single g5.2xlarge node containing an A10g GPU, but it will autoscale additional GPU nodes as we spin up additional resources.
+This cluster also is equipped with a single g5.2xlarge node containing an A10G GPU, but it will autoscale additional GPU nodes as we spin up additional resources.
 
 NOTE: The repo used to manage the cluster resources can be found https://github.com/redhat-composer-ai/cluster-gitops[here].  This repo is based on the https://github.com/redhat-ai-services/ai-accelerator[AI Accelerator] an asset created and maintained by the NA AI Practice for use with deploying and managing OpenShift AI in customer environments.
 
 == Composer AI Overview
+
+
 
 image::01-composer-topology.png[Composer Topology]
