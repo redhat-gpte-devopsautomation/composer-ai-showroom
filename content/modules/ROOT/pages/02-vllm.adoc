@@ -142,6 +142,9 @@ Our Composer instance is already setup to point to the vLLM endpoint we created 
 
 . Find the `chatbot-ui` Route from the OpenShift Web Console and open it as a new tab.
 
++
+image::02-chatbot-route.png[Chatbot Route]
+
 . In the top left hand corner select the `Default Assistant`
 
 +
