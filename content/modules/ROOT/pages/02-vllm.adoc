@@ -33,7 +33,7 @@ image::02-deploy-models.png[Deploy Models]
 . Enter the following information
 
 +
-[source,properties]
+[source,yaml]
 ----
 Model deployment name: vllm
 Serving runtime: vLLM ServingRuntime for KServe
@@ -54,7 +54,7 @@ image::02-model-options.png[Model Options]
 . In the `Source model location` section, choose the option to `Create connection`.  Enter the following information:
 
 +
-[source,properties]
+[source,yaml]
 ----
 Connection type: URI - v1
 Connection name: granite-3-0-8b-instruct
@@ -72,7 +72,8 @@ You can find the original image https://github.com/redhat-ai-services/modelcar-c
 Additionally, the source for building these ModelCar images can be found on https://github.com/redhat-ai-services/modelcar-catalog/[GitHub].
 ====
 
-+[TIP]
++
+[TIP]
 ====
 A copy of the image has already been pulled onto the GPU node to help speed up deploying the model, but deploying LLMs can take quite some time.
 
