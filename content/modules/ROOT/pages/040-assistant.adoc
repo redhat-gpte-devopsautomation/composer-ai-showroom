@@ -25,7 +25,7 @@ To start with lets create a basic assistant with a simple prompt.
 . Insert the Following Values:
 
 +
-[source,properties]
+[source,yaml]
 ----
 Name: pig_latin_assistant
 Display Name: Pig Latin
