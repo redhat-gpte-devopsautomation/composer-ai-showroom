@@ -20,10 +20,15 @@ Treating the model as an OCI artifact allows us to easily promote the model betw
 +
 image::02-composer-ai-apps-project.png[Composer AI Apps Project]
 
-. Select the `Models` tab and click `Deploy model`
+. Select the `Models` tab and click `Select single-model`
 
 +
-image::02-deploy-model.png[Deploy Model]
+image::02-single-model.png[Single Model]
+
+. Select `Deploy models`
+
++
+image::02-deploy-models.png[Deploy Models]
 
 . Enter the following information
 
@@ -39,6 +44,8 @@ Memory requested: 16 GiB
 Memory limit: 20 GiB
 Accelerator: nvidia-gpu
 Number of accelerators: 1
+Make deployed models available through an external route: Checked
+Require token authentication: Unchecked
 ----
 
 +
@@ -51,7 +58,7 @@ image::02-model-options.png[Model Options]
 ----
 Connection type: URI - v1
 Connection name: granite-3-0-8b-instruct
-URI: oci://image-registry.openshift-image-registry.svc:5000/composer-ai-apps/granite-3.0-8b-instruct:latest
+URI: oci://quay.io/redhat-ai-services/modelcar-catalog:granite-3.0-8b-instruct
 ----
 
 +
@@ -60,11 +67,30 @@ image::02-uri-connection.png[URI Connection]
 +
 [NOTE]
 ====
-A copy of the image with our model has already been loaded onto the cluster as an ImageStream to help speed up the process of pulling the image.
-
-However, you can find the original image https://github.com/redhat-ai-services/modelcar-catalog/[here] alongside other ModelCar images that you can try.
+You can find the original image https://github.com/redhat-ai-services/modelcar-catalog/[here] alongside other ModelCar images that you can try.
 
 Additionally, the source for building these ModelCar images can be found on https://github.com/redhat-ai-services/modelcar-catalog/[GitHub].
+====
+
++[TIP]
+====
+A copy of the image has already been pulled onto the GPU node to help speed up deploying the model, but deploying LLMs can take quite some time.
+
+KServe uses KNative Serverless to manage the model servers which has a default timeout of 10 minutes which means that if the model server takes longer than 10 minutes to deploy it will automatically terminate the pod and mark it as failed.
+
+You can extend the timeout by adding the following annotation to the `predictor` section of the `InferenceService`:
+
+[source,yaml]
+----
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: vllm
+spec:
+  predictor:
+    annotations:
+      serving.knative.dev/progress-deadline: 30m
+----
 ====
 
 . A new vLLM instance will be created in the OpenShift AI Dashboard.  Return to the OpenShift Web Console and check the pods in the `composer-ai-apps` project.  You should find a pod called `vllm-predictor-00001-deployment-*`.  Check the pods `Events` and `Logs` to follow the progress for the pod until it becomes ready.
