@@ -15,69 +15,64 @@ Treating the model as an OCI artifact allows us to easily promote the model betw
 
 == Creating the vLLM Instance
 
-Since we are using a ModelCar container to deploy our model instead of S3, we will need to deploy the resources without the OpenShift AI Dashboard.
+. Open the https://rhods-dashboard-redhat-ods-applications.{openshift_cluster_ingress_domain}[OpenShift AI Dashboard] and select the `composer-ai-apps` project from the list of Data Science Projects
 
-. To start, With the `redhat-ods-applications` namespace selected, navigate to Developer perspective in the OpenShift Web Console.  From the `+Add` page, select `All Services`.
++
+image::02-composer-ai-apps-project.png[Composer AI Apps Project]
 
-image::02-add-catalog.png[Add Catalog]
+. Select the `Models` tab and click `Deploy model`
 
-[start=2]
-. Search for `vLLM` and select the `vLLM ServingRuntime for KServe` template
++
+image::02-deploy-model.png[Deploy Model]
 
-image::02-select-template.png[Select Template]
+. Enter the following information
 
-[start=3]
-. Choose to `Instantiate Template`.  Select the `composer-ai-apps` project and click `Create`
-
-image::02-instantiate-template.png[Instantiate Template]
-
-The vLLM ServingRuntime for KServe `Template` is the same template that the OpenShift AI Dashboard uses when deploying a new instance.  Unlike the Dashboard though, the template with just create the `ServingRuntime` object and not the `InferenceService`.
-
-[start=4]
-. Next we will need to create the InferenceService.  Click the `+` in the top right hand corner and paste the following object in and click `Create`.
-
-[source,yaml]
++
+[source,properties]
 ----
-apiVersion: serving.kserve.io/v1beta1
-kind: InferenceService
-metadata:
-  annotations:
-    serving.knative.openshift.io/enablePassthrough: 'true'
-    sidecar.istio.io/inject: 'true'
-    sidecar.istio.io/rewriteAppHTTPProbers: 'true'
-  name: vllm
-  namespace: composer-ai-apps
-  labels:
-    opendatahub.io/dashboard: 'true'
-spec:
-  predictor:
-    annotations:
-      serving.knative.dev/progress-deadline: 45m
-    maxReplicas: 1
-    minReplicas: 1
-    model:
-      modelFormat:
-        name: vLLM
-      name: ''
-      resources: 
-        limits:
-          cpu: '4'
-          memory: 20Gi
-          nvidia.com/gpu: '1'
-        requests:
-          cpu: '2'
-          memory: 16Gi
-          nvidia.com/gpu: '1'
-      runtime: vllm-runtime
-      storageUri: 'oci://quay.io/redhat-ai-services/modelcar-catalog:granite-3.0-8b-instruct'
-    tolerations:
-      - effect: NoSchedule
-        key: nvidia.com/gpu
-        operator: Equal
+Model deployment name: vllm
+Serving runtime: vLLM ServingRuntime for KServe
+Model server size: Custom
+CPUs requested: 2 Cores
+CPUs limit: 4 Cores
+Memory requested: 16 GiB
+Memory limit: 20 GiB
+Accelerator: nvidia-gpu
+Number of accelerators: 1
 ----
 
-[start=5]
-. A new vLLM pod should be scheduled.  The container image may take some time to pull.  Feel free to move on to the next steps and keep an eye on the pod for it to successfully start.
++
+image::02-model-options.png[Model Options]
+
+. In the `Source model location` section, choose the option to `Create connection`.  Enter the following information:
+
++
+[source,properties]
+----
+Connection type: URI - v1
+Connection name: granite-3-0-8b-instruct
+URI: oci://image-registry.openshift-image-registry.svc:5000/composer-ai-apps/granite-3.0-8b-instruct:latest
+----
+
++
+image::02-uri-connection.png[URI Connection]
+
++
+[NOTE]
+====
+A copy of the image with our model has already been loaded onto the cluster as an ImageStream to help speed up the process of pulling the image.
+
+However, you can find the original image https://github.com/redhat-ai-services/modelcar-catalog/[here] alongside other ModelCar images that you can try.
+
+Additionally, the source for building these ModelCar images can be found on https://github.com/redhat-ai-services/modelcar-catalog/[GitHub].
+====
+
+. A new vLLM instance will be created in the OpenShift AI Dashboard.  Return to the OpenShift Web Console and check the pods in the `composer-ai-apps` project.  You should find a pod called `vllm-predictor-00001-deployment-*`.  Check the pods `Events` and `Logs` to follow the progress for the pod until it becomes ready.
+
+. (Optional) The OpenShift AI Dashboard created two KServe objects, a `ServingRuntime` and an `InferenceService`.  From the OpenShift Web Console, navigate to the `Home` > `Search` page and use the `Resources` drop down menu to search for and select those objects.  Spend a few minutes reviewing the objects created by the Dashboard.
+
++
+image::02-kserve-objects.png[KServe Objects]
 
 == Testing vLLM Endpoints
 
