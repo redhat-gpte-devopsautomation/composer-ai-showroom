@@ -67,9 +67,11 @@ image::02-uri-connection.png[URI Connection]
 +
 [NOTE]
 ====
-You can find the original image https://github.com/redhat-ai-services/modelcar-catalog/[here] alongside other ModelCar images that you can try.
+You can find the image container our model https://github.com/redhat-ai-services/modelcar-catalog/[here] alongside other ModelCar images that you can try.
 
 Additionally, the source for building these ModelCar images can be found on https://github.com/redhat-ai-services/modelcar-catalog/[GitHub].
+
+For more information on ModelCar see the KServe https://kserve.github.io/website/latest/modelserving/storage/oci/[Serving models with OCI images] documentation.
 ====
 
 +
@@ -103,4 +105,49 @@ image::02-kserve-objects.png[KServe Objects]
 
 == Testing vLLM Endpoints
 
-The vLLM instance may take a while to pull the model image and load it.  Feel free to move onto the next section and come back to test the endpoint once the vLLM instance is up and running.
+=== Accessing the Swgger Docs
+
+To start will test our vLLM endpoint to make sure it is responding by accessing the Swagger docs for vLLM.
+
+. To start we will need to find the endpoint URL for the served model.  From the OpenShift AI Dashboard, navigate to the Models tab and click on the `Internal and external endpoint details` to find the URL.
+
++
+image::02-model-endpoint.png[Model endpoint]
+
++
+[NOTE]
+====
+Our vLLM instance does not create a normal OpenShift route so you won't find it under the normal `Networking` > `Routes` menu.  
+
+Instead it creates a KNative Serving Route object which can be found with the following:
+
+----
+oc get routes.serving.knative.dev -n composer-ai-apps
+----
+====
+
+. Use the `copy` option for the route found in the previous step and paste it into a new tab with `/docs` at the end to access a FastAPI Swagger Docs page for vLLM.
+
+. Use the `Try it out` option of the `GET /v1/models` endpoint to list the models being deployed by this server.  Note that the id for our model matches the name of the model server we created in the OpenShift AI Dashboard.
+
+=== Testing the model from a notebook
+
+::TODO::
+
+=== Testing the model from Composer AI UI
+
+Now that we have done some basic testing we are ready to try the model from inside of the Composer AI Studio UI.
+
+Our Composer instance is already setup to point to the vLLM endpoint we created so no additional configuration is required.
+
+. Find the `chatbot-ui` Route from the OpenShift Web Console and open it as a new tab.
+
+. In the top left hand corner select the `Default Assistant`
+
++
+image::02-default-assistant.png[Default Assistant]
+
+. Ask a question in the UI to verify that the LLM is able to respond.
+
++
+image::02-llm-response.png[LLM Response]
