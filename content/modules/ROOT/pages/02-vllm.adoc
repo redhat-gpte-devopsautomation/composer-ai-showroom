@@ -132,7 +132,7 @@ oc get routes.serving.knative.dev -n composer-ai-apps
 
 === Testing the model from a notebook
 
-::TODO::
+TODO
 
 === Testing the model from Composer AI UI
 
