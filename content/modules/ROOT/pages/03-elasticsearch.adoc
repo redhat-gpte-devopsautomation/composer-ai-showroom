@@ -1,17 +1,16 @@
 = Deploying Vector Database with Elasticsearch
 
-In this lab we will be using Elasticsearch for our vector database technology.  Elasticsearch can be deployed using the certified Elastic Cloud Kubernetes (ECK) operator in the openshift marketplace.  To install elasticsearch into your cluster, click the + in the top right hand corner and paste the following objects in and click Create.
+In our deployment we will be utilizing Elasticsearch for our vector database.
+
+Elasticsearch is a Red Hat partner and Red Hat has announced future integrations within OpenShift AI.
+
+== Creating the Elasticsearch Instance
+
+The Elasticsearch (ECK) Operator has already been installed on the cluster for you.
+
+To install elasticsearch into your cluster, click the `+` in the top right hand corner and paste the following objects in and click Create.
 
 ```
-apiVersion: v1
-kind: Namespace
-metadata:
-  annotations:
-    openshift.io/node-selector: ""
-  labels:
-    openshift.io/cluster-monitoring: "true"
-  name: elastic-vectordb
----
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
@@ -48,26 +47,9 @@ spec:
       name: default
       count: 3
   version: 8.16.0
----
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: elasticsearch-eck-operator-certified
-  namespace: elastic-vectordb
-spec: {}
----
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: elasticsearch-eck-operator-certified
-  namespace: elastic-vectordb
-spec:
-  channel: stable
-  installPlanApproval: Automatic
-  name: elasticsearch-eck-operator-certified
-  source: certified-operators
-  sourceNamespace: openshift-marketplace
 ```
+
+
 
 // == Deploying Elasticsearch Instance
 
