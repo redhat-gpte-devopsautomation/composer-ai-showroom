@@ -17,7 +17,7 @@ We will be using the RetrieverConnection(Knowledge Source) created in the link:0
 . Create a new Assistant with the following properties:
 
 +
-[source,properties]
+[source,yaml]
 ----
 Name: email_summary_assistant_rag
 Display Name: Email Summary Assistant RAG
