@@ -6,7 +6,6 @@ Up until this point the Assistants that we have created use simple prompt engine
 
 This could be used to feed the LLM more relevant information about the topic to the LLM allowing it to return a much more focused response. Or it can event be used to send non-public information, allowing our model to create reports on data it was never trained on. This is the real power of RAG and also why security is such a primary concern when it comes to deploying our services on our clients.
 
-+
 TIP: While Vector Databases are probably the most popular Data Source when it comes to RAG, there are many other options such as Graph DBs. At the end of the day we can augment our prompt information with just about any datasource.
 
 == Creating a RAG Assistant
