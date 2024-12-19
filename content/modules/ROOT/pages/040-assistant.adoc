@@ -49,7 +49,6 @@ While the assistant above shows the basics of what can be accomplished use Compo
 
 Create a new Assistant with the following properties:
 
-+
 [source,properties]
 ----
 Name: email_summary_assistant
