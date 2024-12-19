@@ -1,61 +1,29 @@
-= Deploying Vector Database with Elasticsearch
+= Deploying a Vector Database with Elasticsearch
 
-In our deployment we will be utilizing Elasticsearch for our vector database.
+Now that our LLM is up and running, we now need to deploy a vector database that we will use to ingest documents for our RAG architecture.  In our workshop we will be utilizing Elasticsearch for our vector database.
 
 Elasticsearch is a Red Hat partner and Red Hat has announced future integrations within OpenShift AI.
 
 == Creating the Elasticsearch Instance
 
-The Elasticsearch (ECK) Operator has already been installed on the cluster for you.
+The Elasticsearch (ECK) Operator has already been installed on the cluster for you, so we will just need to create an `Elasticsearch Cluster` instance.
 
-To install elasticsearch into your cluster, click the `+` in the top right hand corner and paste the following objects in and click Create.
+. With the `composer-ai-apps` namespace selected in the OpenShift Web Console, navigate to `Operators` > `Installed Operators` and select the `Elasticsearch (ECK) Operator`.
 
-```
-apiVersion: elasticsearch.k8s.elastic.co/v1
-kind: Elasticsearch
-metadata:
-  name: elasticsearch
-  namespace: elastic-vectordb
-  labels:
-    app: "elasticsearch"
-spec:
-  http:
-    tls:
-      selfSignedCertificate:
-        disabled: true
-  nodeSets:
-    - config:
-        node.roles:
-          - master
-          - data
-        node.attr.attr_name: attr_value
-        node.store.allow_mmap: false
-      podTemplate:
-        metadata:
-          labels:
-            foo: bar
-        spec:
-          containers:
-            - name: elasticsearch
-              resources:
-                limits:
-                  cpu: 2
-                  memory: 4Gi
-                requests:
-                  cpu: 1
-                  memory: 4Gi
-      name: default
-      count: 3
-  version: 8.16.0
-```
++
+image::03-elasticsearch-operator.png[Elasticsearch Operator]
 
+. Click the `+Create instance` option for an `Elasticsearch Cluster`
 
++
+image::03-elasticsearch-operator.png[Elasticsearch Operator]
 
-// == Deploying Elasticsearch Instance
+. Update the object name to `elasticsearch` and click `Create`.
 
-// # Instructions for deploying Elasticsearch instance
++
+image::03-elasticsearch-yaml.png[Elasticsearch YAML]
 
-This will install both the elasticsearch eck operator and the Elasticsearch Custom resource.  
+Three new Elasticsearch pods will be created in the `composer-ai-apps` namespace.  Once they are Ready, you are ready to move on to the next step.
 
 == Populating Vector Database
 
@@ -64,7 +32,6 @@ Now that we have the elasticsearch cluster up and running, we must ingest docume
 [NOTE]
 ====
 For demonstration purposes we will be ingesting documentation for various Red Hat products.  However, it is import to keep in mind that basically any data source can be used in the context of RAG, including the live web.  If you have ever used the chatbot Perplexity AI, that is what it is doing behind the scenes. 
-
 ====
 
 # Instructions for executing the ingestion pipeline
@@ -80,6 +47,3 @@ The progress can be viewed in the "Experiments and runs" section in the Openshif
 image::03-view-experiments.png[Instantiate Template]
 
 From here you can view the progress of the Kubeflow Pipeline (KFP), as well as the logs of individual steps, similar to Tekton.  
-
-
-
