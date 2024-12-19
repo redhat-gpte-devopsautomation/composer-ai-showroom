@@ -2,23 +2,25 @@
 
 == Assistants
 
-Now that we have installed all the necessary requirements of the application we can look into creating an Assistant!
+Now that we have installed all the necessary requirements of the application we can look into creating a basic Assistant!
 
 Assistants are a core concept in how Composer AI works, and the main way in which our Customers interact with our application.
 
-An `Assistant` is an object stored in our database and contains the instructions that Composer will use to orchestrate the flow of the client's message through our different AI Services.
+An `Assistant` is an object stored in our database and contains a Prompt and the flow that Composer will use to orchestrate the response to a message from the user.
 
-
-[.bordershadow]
 image::040-Composer_Assistants.drawio.png[Assistant Graph]
 
 NOTE: Currently Composer only supports simple RAG flows but we have future plans to expand into more complex flows. 
+
+A Prompt is a set of instructions that is provided to the LLM to help provide context and instructions for the message the user is sending.  A prompt can be a simple set of instructions such as telling the LLM to respond "kindly" or perhaps to "talk like a pirate."  Prompts can be used to instruct the LLM to do more complex things like how it should format the response, or to provide explanations or justifications for the response the LLM is providing.
+
+Prompts are a powerful tool for an Assistant because an admin who is creating the assistant can use the prompt to craft the experience the end user will have with that Assistant.  Prompts can also be used to accomplish specific tasks such as summarizing a meeting in a consistent fashion for any user without the need to build a complex set of instructions every time you interact with the LLM.
 
 == Creating a Basic Assistant
 
 To start with lets create a basic assistant with a simple prompt.
 
-. Navigate To the Assistants Tab
+. Navigate To the Assistants Tab  on the left hand sidebar in the http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI]
 
 . `Create Assistant`
 
