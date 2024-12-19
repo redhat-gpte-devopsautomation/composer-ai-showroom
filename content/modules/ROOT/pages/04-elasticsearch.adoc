@@ -11,17 +11,17 @@ The Elasticsearch (ECK) Operator has already been installed on the cluster for y
 . With the `composer-ai-apps` namespace selected in the OpenShift Web Console, navigate to `Operators` > `Installed Operators` and select the `Elasticsearch (ECK) Operator`.
 
 +
-image::03-elasticsearch-operator.png[Elasticsearch Operator]
+image::04-elasticsearch-operator.png[Elasticsearch Operator]
 
 . Click the `+Create instance` option for an `Elasticsearch Cluster`
 
 +
-image::03-elasticsearch-operator.png[Elasticsearch Operator]
+image::04-elasticsearch-operator.png[Elasticsearch Operator]
 
 . Update the object name to `elasticsearch` and click `Create`.
 
 +
-image::03-elasticsearch-yaml.png[Elasticsearch YAML]
+image::04-elasticsearch-yaml.png[Elasticsearch YAML]
 
 Three new Elasticsearch pods will be created in the `composer-ai-apps` namespace.  Once they are Ready, you are ready to move on to the next step.
 
@@ -38,12 +38,12 @@ For demonstration purposes we will be ingesting documentation for various Red Ha
 
 To get you started, we have included an ingestion pipeline to populate the elasticsearch instance with information pulled from openshift documentation.  Go to pipelines in the composer-ai-apps namespaces.  Run the `ingestion-pipeline` pipeline with the default parameters.  Set the `source` workspace to the VolumeClaimTemplate option.  
 
-image::03-show-pipeline-1.png[Instantiate Template]
+image::04-show-pipeline-1.png[Instantiate Template]
 
-image::03-show-pipeline-2.png[Instantiate Template]
+image::04-show-pipeline-2.png[Instantiate Template]
 
 The progress can be viewed in the "Experiments and runs" section in the Openshift AI console.
 
-image::03-view-experiments.png[Instantiate Template]
+image::04-view-experiments.png[Instantiate Template]
 
 From here you can view the progress of the Kubeflow Pipeline (KFP), as well as the logs of individual steps, similar to Tekton.  

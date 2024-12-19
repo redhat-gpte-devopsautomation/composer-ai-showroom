@@ -8,7 +8,7 @@ Assistants are a core concept in how Composer AI works, and the main way in whic
 
 An `Assistant` is an object stored in our database and contains a Prompt and the flow that Composer will use to orchestrate the response to a message from the user.
 
-image::040-Composer_Assistants.drawio.png[Assistant Graph]
+image::03-composer-assistants.drawio.png[Assistant Graph]
 
 NOTE: Currently Composer only supports simple RAG flows but we have future plans to expand into more complex flows. 
 
@@ -37,7 +37,7 @@ Prompt: Respond to the user in Pig Latin
 
 +
 [.bordershadow]
-image::040-Create-Basic-Assistant.png[Create Basic Assistant]
+image::03-create-basic-assistant.png[Create Basic Assistant]
 
 === Testing Basic Assistant
 
