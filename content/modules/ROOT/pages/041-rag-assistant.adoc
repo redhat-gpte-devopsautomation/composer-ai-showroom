@@ -12,7 +12,7 @@ TIP: While Vector Databases are probably the most popular Data Source when it co
 
 You may have noticed in our previous assistant creation we ignored the "Knowledge source" section. This section contains our `RetrieverConnections` which resent the connections to our RAG data sources.
 
-We will be using the RetrieverConnection(Knowledge Source) created in the link:03-elasticsearch.adoc[Elasticsearch section].
+We will be using the RetrieverConnection(Knowledge Source) created in the link:03-elasticsearch.html[Elasticsearch section].
 
 . Create a new Assistant with the following properties:
 
