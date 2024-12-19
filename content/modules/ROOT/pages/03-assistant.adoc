@@ -20,11 +20,12 @@ Prompts are a powerful tool for an Assistant because an admin who is creating th
 
 To start with lets create a basic assistant with a simple prompt.
 
-. Navigate To the Assistants Tab  on the left hand sidebar in the http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI]
+. Navigate To the Assistants Tab on the left hand sidebar in the http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI] and click `New assistant`
 
-. `Create Assistant`
++
+image::03-new-assistant.png[New Assistant]
 
-. Insert the Following Values:
+. Insert the Following Values and click `Create assistant`:
 
 +
 [source,yaml]
@@ -36,7 +37,6 @@ Prompt: Respond to the user in Pig Latin
 ----
 
 +
-[.bordershadow]
 image::03-create-basic-assistant.png[Create Basic Assistant]
 
 === Testing Basic Assistant
