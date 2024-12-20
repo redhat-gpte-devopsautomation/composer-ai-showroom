@@ -1,6 +1,12 @@
 = Deploying a Vector Database with Elasticsearch
 
-Now that our LLM is up and running, we now need to deploy a vector database that we will use to ingest documents for our RAG architecture.  In our workshop we will be utilizing Elasticsearch for our vector database.
+Now that our LLM is up and running, we now need to deploy a vector database to enable the more complex Retrieval Augmented Generation (RAG) workflow.  
+
+In a RAG architecture, documents are pre-populated into a vector database.  When a user asks a question, a tool such as LangChain is used to query the vector database for documents that are related to that question, and they are provided to the LLM as context to help it answer the question.
+
+RAG can help to greatly enhance the responses from an LLM by providing the relevant information about the topic the user is asking and not simply relying on the pool of knowledge the LLM was trained on.
+
+In our workshop we will be utilizing Elasticsearch for our vector database.
 
 Elasticsearch is a Red Hat partner and Red Hat has announced future integrations within OpenShift AI.
 
@@ -27,23 +33,57 @@ Three new Elasticsearch pods will be created in the `composer-ai-apps` namespace
 
 == Populating Vector Database
 
-Now that we have the elasticsearch cluster up and running, we must ingest documents into it.  This will allow us to create Retrieval Augmented Generation (RAG) based assistants that Composer AI can use.
+Now that we have the elasticsearch cluster up and running, we must ingest documents into it.
 
 [NOTE]
 ====
 For demonstration purposes we will be ingesting documentation for various Red Hat products.  However, it is import to keep in mind that basically any data source can be used in the context of RAG, including the live web.  If you have ever used the chatbot Perplexity AI, that is what it is doing behind the scenes. 
 ====
 
-# Instructions for executing the ingestion pipeline
+=== Executing the ingestion pipeline
 
-To get you started, we have included an ingestion pipeline to populate the elasticsearch instance with information pulled from openshift documentation.  Go to pipelines in the composer-ai-apps namespaces.  Run the `ingestion-pipeline` pipeline with the default parameters.  Set the `source` workspace to the VolumeClaimTemplate option.  
+. From the OpenShift Web Console, while you have the `composer-ai-apps` namespace selected, navigate to the `Pipelines` > `Pipelines` section and locate the `ingestion-pipeline` pipeline.  Click on the `...` on the right and click `Start`.
 
-image::04-show-pipeline-1.png[Instantiate Template]
++
+image::04-start-pipeline.png[Start Pipeline]
 
-image::04-show-pipeline-2.png[Instantiate Template]
+. Leave all of the default options except for the `source`.  Set `source` to `VolumeClaimTemplate` and click start.
 
-The progress can be viewed in the "Experiments and runs" section in the Openshift AI console.
++
+image::04-volume-claim-template.png[Volume Claim Template]
 
-image::04-view-experiments.png[Instantiate Template]
+. A new pipeline run will begin that will build an image containing our ingestion pipeline and start it that pipeline in Data Science Pipelines.  Wait for the `execute-kubeflow-pipeline` task to complete.
 
-From here you can view the progress of the Kubeflow Pipeline (KFP), as well as the logs of individual steps, similar to Tekton.  
++
+image::04-pipelin-run.png[Pipeline Run]
+
+. Once the `execute-kubeflow-pipeline` task has executed, a new pipeline run will begin in Data Science Pipelines.  To view the pipeline run, navigate to the OpenShift AI Dashboard and select `Experiments` > `Experiments and runs`.  Click on the `document_ingestion` experiment.  Be sure that you have the `composer-ai-apps` Project selected.
+
++
+image::04-view-experiments.png[View experiments]
+
+. You should see a single run listed.  Click on the run to view the execution of that run.
+
++
+image::04-view-run.png[View run]
+
+The data ingestion process may take several minutes to complete.  You can follow the progress of the various steps by checking the `Logs` for each step in the OpenShift AI Dashboard.  You can also find the pods for the steps in the OpenShift Web Console.  Some of the steps require a GPU which will trigger a new GPU node to be auto-scaled in your cluster, which can take several minutes.
+
+=== Testing the vector database from Composer AI UI
+
+Now that our vector database is up and running and we have ingested some documents.
+
+We have already created several Assistants that are ready to use the documents we have ingested.
+
+. Navigate to the Composer AI UI and click the `Compare` button in the top right hand corner.
+
++
+[NOTE]
+====
+The `Compare` interface provides the ability to query multiple assistants at the same time to allow a user to compare the results.  This can be a useful feature for testing various assistants to see how the responses differ.
+====
+
+. Select the `Default Red Hat OpenShift AI Self Managed Assistant` for the left chat, and the `Default Assistant` we used before to test our LLM.  Ask a question about OpenShift AI such as "How do I create a data connection?" and see how the responses change with our RAG workflow.
+
++
+image::04-compare.png[Compare Assistant]
