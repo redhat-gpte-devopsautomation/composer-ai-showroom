@@ -130,10 +130,6 @@ oc get routes.serving.knative.dev -n composer-ai-apps
 
 . Use the `Try it out` option of the `GET /v1/models` endpoint to list the models being deployed by this server.  Note that the id for our model matches the name of the model server we created in the OpenShift AI Dashboard.
 
-=== Testing the model from a notebook
-
-TODO
-
 === Testing the model from Composer AI UI
 
 Now that we have done some basic testing we are ready to try the model from inside of the Composer AI Studio UI.
