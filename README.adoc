@@ -9,6 +9,18 @@ In order to test and develop on your local machine, you can use a specially buil
 podman run --rm --name antora -v $PWD:/antora -p 8080:8080 -i -t ghcr.io/juliaaano/antora-viewer
 ----
 
+The site can also be created by installing antora:
+
+---
+sudo npm install --global @antora/cli@3.1 @antora/site-generator@3.1
+---
+
+Then building locally with:
+
+---
+antora generate default-site.yml --stacktrace
+---
+
 If you make changes to the content, all you need is to kill the container and run it again.
 
 Live-reload is not supported.
