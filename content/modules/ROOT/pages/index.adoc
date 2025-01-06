@@ -13,3 +13,11 @@ Here are some important links to help you on your journey:
 * https://openshift-gitops-server-openshift-gitops.{openshift_cluster_ingress_domain}[Cluster Scoped ArgoCD]
 * https://argocd-server-composer-ai-gitops.{openshift_cluster_ingress_domain}[Composer AI ArgoCD]
 * http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI]
+
+
+== Important Credentials
+
+The cluster admin user can be used to access all of the resources on the cluster including the ArgoCD instance and OpenShift AI Dashboard.
+
+Cluster admin user: {openshift_cluster_admin_username}
+Cluster admin password: {openshift_cluster_admin_password}
