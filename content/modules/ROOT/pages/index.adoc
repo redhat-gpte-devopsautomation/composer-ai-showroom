@@ -19,5 +19,6 @@ Here are some important links to help you on your journey:
 
 The cluster admin user can be used to access all of the resources on the cluster including the ArgoCD instance and OpenShift AI Dashboard.
 
-Cluster admin user: {openshift_cluster_admin_username}
-Cluster admin password: {openshift_cluster_admin_password}
+Cluster admin user: `{openshift_cluster_admin_username}`
+
+Cluster admin password: `{openshift_cluster_admin_password}`
