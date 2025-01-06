@@ -66,7 +66,7 @@ image::04-volume-claim-template.png[Volume Claim Template]
 . A new pipeline run will begin that will build an image containing our ingestion pipeline and start it that pipeline in Data Science Pipelines.  Wait for the `execute-kubeflow-pipeline` task to complete.
 
 +
-image::04-pipelin-run.png[Pipeline Run]
+image::04-pipeline-run.png[Pipeline Run]
 
 . Once the `execute-kubeflow-pipeline` task has executed, a new pipeline run will begin in Data Science Pipelines.  To view the pipeline run, navigate to the OpenShift AI Dashboard and select `Experiments` > `Experiments and runs`.  Click on the `document_ingestion` experiment.  Be sure that you have the `composer-ai-apps` Project selected.
 
