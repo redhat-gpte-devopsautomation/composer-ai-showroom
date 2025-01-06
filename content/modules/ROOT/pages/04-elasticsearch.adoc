@@ -24,7 +24,18 @@ image::04-elasticsearch-operator.png[Elasticsearch Operator]
 +
 image::04-elasticsearch-operator.png[Elasticsearch Operator]
 
-. Update the object name to `elasticsearch` and click `Create`.
+. Update the object name to `elasticsearch.`  In addition to this, add the following yaml to the top level `spec:` of the `Elasticsearch` custom resource:
+
++
+```
+spec:
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+```
+and then click `Create`.
+
 
 +
 image::04-elasticsearch-yaml.png[Elasticsearch YAML]
