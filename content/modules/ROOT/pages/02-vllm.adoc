@@ -20,16 +20,15 @@ Treating the model as an OCI artifact allows us to easily promote the model betw
 +
 image::02-composer-ai-apps-project.png[Composer AI Apps Project]
 
-. Select the `Models` tab and click `Deploy models`
+. Select the `Models` tab and click `Select single-model`
+
++
+image::02-single-model.png[Single Model]
+
+. Select `Deploy models`
 
 +
 image::02-deploy-models.png[Deploy Models]
-
-+
-[NOTE]
-====
-When you first create a Model Server in a Project you must select a `single-model` server or `multi-model` server for the namespace.  Single-model serving has already been selected for the `composer-ai-apps` namespace.
-====
 
 . Enter the following information
 
