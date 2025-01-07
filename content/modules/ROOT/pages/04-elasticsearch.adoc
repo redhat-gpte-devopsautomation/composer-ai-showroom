@@ -40,6 +40,13 @@ and then click `Create`.
 +
 image::04-elasticsearch-yaml.png[Elasticsearch YAML]
 
+
+. Finally, we will need to restart our backend application pods to let it get the correct secret for the Elasticsearch instance.  Previously the pod was started using a temporary secret, but since the Elasticsearch instance has been created, it will need to be restarted to load the valid secret.
+
++
+To restart the pod, find the `quarkus-llm-router-*` pod in the OpenShift Web Console and delete it.  A new one will automatically be created with the correct secret value.
+
+
 Three new Elasticsearch pods will be created in the `composer-ai-apps` namespace.  Once they are Ready, you are ready to move on to the next step.
 
 == Populating Vector Database
@@ -85,11 +92,6 @@ The data ingestion process may take several minutes to complete.  You can follow
 Now that our vector database is up and running and we have ingested some documents.
 
 We have already created several Assistants that are ready to use the documents we have ingested.
-
-. Before we can use the UI, we will need to restart our backend application pods to let it get the correct secret for the Elasticsearch instance.  Previously the pod was started using a temporary secret, but since the Elasticsearch instance has been created, it will need to be restarted to load the valid secret.
-
-+
-To restart the pod, find the `quarkus-llm-router-*` pod in the OpenShift Web Console and delete it.  A new one will automatically be created with the correct secret value.
 
 . Navigate to the Composer AI UI and click the `Compare` button in the top right hand corner.
 
