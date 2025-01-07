@@ -38,6 +38,7 @@ When you first create a Model Server in a Project you must select a `single-mode
 ----
 Model deployment name: vllm
 Serving runtime: vLLM ServingRuntime for KServe
+Number of model server replicas to deploy: 1
 Model server size: Custom
 CPUs requested: 2 Cores
 CPUs limit: 4 Cores
