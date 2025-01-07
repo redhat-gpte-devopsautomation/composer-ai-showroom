@@ -22,7 +22,7 @@ image::04-elasticsearch-operator.png[Elasticsearch Operator]
 . Click the `+Create instance` option for an `Elasticsearch Cluster`
 
 +
-image::04-elasticsearch-operator.png[Elasticsearch Operator]
+image::04-create-elasticsearch-cluster.png[Create Elasticsearch Cluster]
 
 . Update the object name to `elasticsearch`.  In addition to this, add the following yaml to the top level `spec:` of the `Elasticsearch` custom resource:
 
