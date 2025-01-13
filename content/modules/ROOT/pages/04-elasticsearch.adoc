@@ -10,6 +10,22 @@ In our workshop we will be utilizing Elasticsearch for our vector database.
 
 Elasticsearch is a Red Hat partner and Red Hat has announced future integrations within OpenShift AI.
 
+== Manually Scaling GPU node
+
+For our pipeline we will run at the end of this section, we will need an additional GPU.  While this cluster is set to autoscale our GPU nodes, it does take approximately 20 minutes to fully provision a GPU node and setup the GPU drivers on that node.  In order to avoid waiting for it to autoscale, we are going to manually scale the GPU now, so it is ready by the time we are ready to execute our pipeline.
+
+. From the `Administrator` perspective of the OpenShift Web Console, navigate to `Compute` > `MachineSets`.  Select the MachineSet with the `g5.2xlarge` Instance type.
+
++
+image::04-machinesets.png[MachineSets]
+
+. Click on the edit icon for `Desired count`, update the value to 2 and click save.
+
++
+image::04-machineset-desired-count.png[MachineSet Desired Count]
+
+A new GPU node will begin the provisioning process.  Continue with the rest of the instructions and the node should hopefully reduce the amount of time it takes for the pipeline to execute in the last part of this section.
+
 == Creating the Elasticsearch Instance
 
 The Elasticsearch (ECK) Operator has already been installed on the cluster for you, so we will just need to create an `Elasticsearch Cluster` instance.
@@ -65,10 +81,16 @@ For demonstration purposes we will be ingesting documentation for various Red Ha
 +
 image::04-start-pipeline.png[Start Pipeline]
 
-. Leave all of the default options except for the `source`.  Set `source` to `VolumeClaimTemplate` and click start.
+. Update the `GIT_REVISION` field to `lab` and leave all of the other default options except for the `source`.  Set `source` to `VolumeClaimTemplate` and click start.
 
 +
 image::04-volume-claim-template.png[Volume Claim Template]
+
++
+[NOTE]
+====
+The `lab` branch of the data ingestion pipeline is simply a reduced list of documents that will be ingested using the pipeline in order to speed up the process.  If you wish to try this pipeline on your own or test some of the other product assistants, feel free to leverage `main`.
+====
 
 . A new pipeline run will begin that will build an image containing our ingestion pipeline and start it that pipeline in Data Science Pipelines.  Wait for the `execute-kubeflow-pipeline` task to complete.
 
