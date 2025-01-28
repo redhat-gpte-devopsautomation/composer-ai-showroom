@@ -1,39 +1,49 @@
 = Creating An AI Assistant
 
-== Assistants
+== What is an Assistants
 
-Now that we have installed all the necessary requirements of the application we can look into creating a basic Assistant!
+Assistants are at the heart of Composer AI. They're how users interact with our application.  You've already used our default assistant!
 
-Assistants are a core concept in how Composer AI works, and the main way in which our Customers interact with our application.
+Think of an assistant as a guide that directs user messages to the large language model (LLM). This guide is created from a series of components:
 
-An `Assistant` is an object stored in our database and contains a Prompt and the flow that Composer will use to orchestrate the response to a message from the user.
+* **Knowledge Stores**: Databases or other sources of information that can be accessed to provide context to the LLM.
+* **LLM Connections**: Details about the specific LLM being used.
+* **Prompts**: Instructions that guide the LLM's responses.
 
 image::03-composer-assistants.drawio.png[Assistant Graph]
 
-NOTE: Currently Composer only supports simple RAG flows but we have future plans to expand into more complex flows. 
+NOTE: Currently, Composer only supports basic rag flows and we are still working on some of the features such as Chat Memory. We're working on more complex options for the future. Feel free to join our effort and help us improve, code can be found https://github.com/redhat-composer-ai/[here].
 
-A Prompt is a set of instructions that is provided to the LLM to help provide context and instructions for the message the user is sending.  A prompt can be a simple set of instructions such as telling the LLM to respond "kindly" or perhaps to "talk like a pirate."  Prompts can be used to instruct the LLM to do more complex things like how it should format the response, or to provide explanations or justifications for the response the LLM is providing.
+== Power of Prompts
 
-Prompts are a powerful tool for an Assistant because an admin who is creating the assistant can use the prompt to craft the experience the end user will have with that Assistant.  Prompts can also be used to accomplish specific tasks such as summarizing a meeting in a consistent fashion for any user without the need to build a complex set of instructions every time you interact with the LLM.
+This section focuses on setting up an assistant with an existing LLM connection and a prompt.
+
+A prompt is an instruction you give to an LLM. It tells the LLM what kind of response you want.
+
+In *Composer AI*, the prompt field is specifically for the system prompt. This gives the LLM overall guidelines on how to behave and respond to user queries.
+
+System prompts are powerful tools used to customize the user experience. They can be used for simple changes, like making the LLM respond "kindly" or "talk like a pirate." But they can also be used for more complex instructions, like formatting responses in JSON or providing explanations for given answers.
+
+The system prompt allows you to control the experience users have with the assistant. You can even accomplish specific tasks, like drafting emails in a particular format, without needing complex instructions for every interaction as we will see in just a bit.
 
 == Creating a Basic Assistant
 
-To start with lets create a basic assistant with a simple prompt.
+To start with lets create a basic assistant with a simple System Prompt.
 
 . Navigate To the Assistants Tab on the left hand sidebar in the http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI] and click `New assistant`
 
 +
 image::03-new-assistant.png[New Assistant]
 
-. Insert the Following Values and click `Create assistant`:
+. Insert the Following Values and click `Create Assistant`:
 
 +
 [source,yaml]
 ----
-Name: pig_latin_assistant
-Display Name: Pig Latin
+Name: recipe_assistant
+Display Name: Recipe Assistant
 Model: Default LLM Connection
-Prompt: Respond to the user in Pig Latin
+Prompt: I am a friendly assistant that will try to write all answers in the form of cooking recipes
 ----
 
 +
@@ -41,13 +51,15 @@ image::03-create-basic-assistant.png[Create Basic Assistant]
 
 === Testing Basic Assistant
 
-Select our new `Pig Latin` assistant from the dropdown and ask a question such as "Sing me the first verse of happy birthday!", and validate the assistant is returning its responses in Pig Latin.
+Select our new `Recipe Assistant` assistant from the dropdown or side bar, and ask a question such as "How do I install Openshift?". The LLM should (hopefully) respond with some simple install steps in the format of a recipe.
 
-TIP: Page Refresh may be required to see the new assistant
+TIP: Feel free to try out some other basic prompts.
+
+NOTE: We are still working on some features such as Chat Memory, so you may notice the the application does not take previous chat messages into consideration when answering.
 
 == Advance Prompt Engineering
 
-While the assistant above shows the basics of what can be accomplished use Composer AI and Prompt Engineering, with some extra direction we are able to have our Assistants respond with much more accuracy and predictability.
+The assistant above showed what can be accomplished using very basic prompt engineering with *Composer AI*. But we are able to use prompts to give much more advanced directions and have our Assistants respond with much more accuracy and predictability.
 
 Create a new Assistant with the following properties:
 

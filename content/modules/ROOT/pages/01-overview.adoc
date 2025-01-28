@@ -32,22 +32,22 @@ An ArgoCD instance deployed to `composer-ai-gitops` manages all of the resources
 
 image::01-composer-argo.png[Composer ArgoCD]
 
-Composer AI is intended to be a flexible architecture, that can leverage a number of different vector databases and models.
+Composer AI is intended to be a tool with a flexible architecture. Allowing for the rapid creation of AI Assistants that can leverage a number of different vector databases and models.
 
 image::01-composer-architecture.png[Composer Architecture]
 
 The current deployed applications include the following Composer components:
 
-* *Chat UI with Composer Studio* - A PatternFly based web UI designed to allow users to easily create new chat assistants and interact with existing assistants.
-* *Conductor Microservice* - A Quarkus based API that hosts the various assistants, which can leverage a RAG pattern with a vector database and various LLMs, and acts as a gateway for any chat application.
-* *Document Ingestion Pipeline* - A pipeline that allows users to ingest documents into a vector database using both Tekton and Data Science Pipelines
+* *Chat UI with Composer Studio* - A PatternFly based web UI designed to allow users to easily interact with the API. Creating new chat assistants and interact with existing assistants.
+* *Conductor Microservice* - A Quarkus based API that responsible for the management of assistants. Assistants created with Conductor can leverage a RAG pattern with a vector database and various LLMs. Conductor can also act as a gateway for any chat application exposing a rest endpoint.
+* *Document Ingestion Pipeline* - A pipeline and pipeline patter that allows users to ingest documents into a vector database using both Tekton and Data Science Pipelines
 
 image::01-composer-topology.png[Composer Topology]
 
-Our cluster does not currently have a model server or vector database deployed, which we will deploy as part of this lab.
+While the `Composer AI` cluster normally retrieved from demo.redhat.com contains all of the required components to quickly get started with Composer AI, the lab cluster is currently is currently missing a model server and vector database. We will explore those components and how to deploy them as part of this lab.
 
-For our model server, we will be deploying a Granite model using OpenShift AI's vLLM.
+Our Model Server will be a Granite model using OpenShift AI's vLLM.
 
-For our vector database, we will be deploying an Elasticsearch instance.
+Our Vector Database will an Elasticsearch instance.
 
 Before proceeding, spend a few minutes to familiarize yourself with the various parts of this environment and what has already been deployed.

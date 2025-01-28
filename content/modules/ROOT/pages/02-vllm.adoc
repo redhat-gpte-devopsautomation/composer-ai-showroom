@@ -97,7 +97,7 @@ spec:
 ----
 ====
 
-. A new vLLM instance will be created in the OpenShift AI Dashboard.  Return to the OpenShift Web Console and check the pods in the `composer-ai-apps` project.  You should find a pod called `vllm-predictor-00001-deployment-*`.  Check the pods `Events` and `Logs` to follow the progress for the pod until it becomes ready.
+. A new vLLM instance will be created in the OpenShift AI Dashboard.  Return to the https://console-openshift-console.{openshift_cluster_ingress_domain}/k8s/ns/composer-ai-apps/core%7Ev1%7EPod?name=vllm-predictor[OpenShift Web Console] and check the pods in the `composer-ai-apps` project.  You should find a pod called `vllm-predictor-00001-deployment-*`.  Check the pods `Events` and `Logs` to follow the progress for the pod until it becomes ready.
 
 . (Optional) The OpenShift AI Dashboard created two KServe objects, a `ServingRuntime` and an `InferenceService`.  From the OpenShift Web Console, navigate to the `Home` > `Search` page and use the `Resources` drop down menu to search for and select those objects.  Spend a few minutes reviewing the objects created by the Dashboard.
 
@@ -120,7 +120,7 @@ image::02-model-endpoint.png[Model endpoint]
 ====
 Our vLLM instance does not create a normal OpenShift route so you won't find it under the normal `Networking` > `Routes` menu.  
 
-Instead it creates a KNative Serving Route object which can be found with the following:
+Instead it creates a KNative Serving Route object which can be found in `Serverless` > `Serving` or with the following:
 
 ----
 oc get routes.serving.knative.dev -n composer-ai-apps
