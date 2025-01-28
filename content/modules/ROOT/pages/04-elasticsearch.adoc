@@ -2,17 +2,33 @@
 
 == Working with RAG
 
-We've explored using system prompts to guide LLM responses, but prompting alone has limitations.  The following sections detail how to set up https://www.redhat.com/en/topics/ai/what-is-retrieval-augmented-generation[Retrieval Augmented Generation (RAG)], a cost-effective method for enhancing LLM responses with more relevant data.
+We've explored using system prompts to guide LLM responses, but prompting alone has limitations.  The following two sections detail how to set up https://www.redhat.com/en/topics/ai/what-is-retrieval-augmented-generation[Retrieval Augmented Generation (RAG)], a cost-effective method for enhancing LLM responses with more relevant data.
 
 RAG significantly improves LLM responses by providing pertinent information related to a user's query, rather than relying solely on the LLM's training data.
 
 == Why Vector Databases?
 
-RAG requires a data source.  Currently, vector databases are the most common solution for this purpose.  They enable us to divide data into logical "chunks" and then use tools like LangChain to query the database for chunks related to a specific question. These relevant chunks are then provided to the LLM as context, improving the quality of its response.
+RAG requires a data source.  Currently, vector databases are the most common solution for this purpose.  They enable us to divide data into logical "chunks" and then query the database for chunks related to a specific question. These relevant chunks are then provided to the LLM as context, improving the quality of its response.
 
 This workshop uses Elasticsearch as our vector database.  As a Red Hat partner, Elasticsearch will be integrated with OpenShift AI in the future.
 
-== Creating our Elasticsearch Instance
+== Manually Scaling GPU node
+
+For our pipeline we will run at the end of this section, we will need an additional GPU.  While this cluster is set to autoscale our GPU nodes, it does take approximately 20 minutes to fully provision a GPU node and setup the GPU drivers on that node.  In order to avoid waiting for it to autoscale, we are going to manually scale the GPU now, so it is ready by the time we are ready to execute our pipeline.
+
+. From the `Administrator` perspective of the OpenShift Web Console, navigate to `Compute` > `MachineSets`.  Select the MachineSet with the `g5.2xlarge` Instance type.
+
++
+image::04-machinesets.png[MachineSets]
+
+. Click on the edit icon for `Desired count`, update the value to 2 and click save.
+
++
+image::04-machineset-desired-count.png[MachineSet Desired Count]
+
+A new GPU node will begin the provisioning process.  Continue with the rest of the instructions and the node should hopefully reduce the amount of time it takes for the pipeline to execute in the last part of this section.
+
+== Creating the Elasticsearch Instance
 
 The Elasticsearch (ECK) Operator has already been installed on the cluster for you, so we will just need to create an `Elasticsearch Cluster` instance.
 
@@ -26,7 +42,7 @@ image::04-elasticsearch-operator.png[Elasticsearch Operator]
 +
 image::04-create-elasticsearch-cluster.png[Create Elasticsearch Cluster]
 
-. Update the object name to `elasticsearch`.
+. Update `metadata.name` to `elasticsearch`.
 
 . Add the following yaml to the top level `spec:` of the `Elasticsearch` custom resource:
 
@@ -50,17 +66,15 @@ This can be validated by checking the opeartor status or validating that the Ela
 
 . Finally, navigate to `Workloads -> Pods` and delete our `quarkus-llm-router-` pod.
 
-NOTE:  Elasticsearch creates the secret `elasticsearch-es-elastic-user` that contains a password that our Conductor(quarkus-llm-router) app requires in order to authenticate against the ElasticSearch instance
+WARNING: The `elasticsearch-es-elastic-user` secret contains the password for the Elasticsearch instance.  The ECK operator should update the placeholder password (`REPLACE_ME`) with a real password.  Ensure the operator has completed this update before deleting the `quarkus-llm-router` pod. If the pod is deleted before the password is updated, the application won't be able to connect to Elasticsearch. The `quarkus-llm-router` pod needs to be restarted so that it can use the newly generated password.
 
-IMPORTANT: A placeholder `elasticsearch-es-elastic-user` secret was created with the password `REPLACE_ME`. Ensure that the operator has updated this value *before* deleting the `quarkus-llm-router-` pod.
-
-== Populating out data
+== Populating our data
 
 Now that we have the elasticsearch cluster up and running, lets add data by ingesting documents.
 
 [TIP]
 ====
-For this demonstration, we'll use Red Hat product documentation.  Keep in mind, however, that Retrieval Augmented Generation (RAG) can use almost any data source, including live web data.  Perplexity AI's chatbot works in a similar way.
+We'll ingest Red Hat product documentation for this demonstration.  Remember that RAG is flexible and can use various data sources, like live web data (similar to how Perplexity AI works).
 ====
 
 === Executing the ingestion pipeline
@@ -72,7 +86,14 @@ Click on the `...` on the right and click `Start`.
 +
 image::04-start-pipeline.png[Start Pipeline]
 
-. Leave all of the default options except for the `source`. 
+. Update the `GIT_REVISION` field to `lab`
++
+[NOTE]
+====
+The `lab` branch reduces list of documents ingested to only includ Red Hat Openshift AI Documentation. We are using the pipeline in order to speed up the process.  If you wish to try this pipeline on your own or test some of the other product assistants, feel free to leverage `main`.
+====
+
+. Leave all of the default options except for the `source`.
 +
 Set `source` to `VolumeClaimTemplate` and start the pipeline.
 
@@ -83,6 +104,8 @@ image::04-volume-claim-template.png[Volume Claim Template]
 +
 Wait for the execute-kubeflow-pipeline task to complete.
 
+. A new pipeline run will begin that will build an image containing our ingestion pipeline for Data Science Pipelines and initiate it. Wait for the `execute-kubeflow-pipeline` task to complete.
+
 +
 image::04-pipeline-run.png[Pipeline Run]
 
@@ -90,7 +113,7 @@ image::04-pipeline-run.png[Pipeline Run]
 +
 To view the execution, navigate to the OpenShift AI Dashboard and select `Experiments` > `Experiments and runs`.
 +
-Click on the `document_ingestion` experiment. 
+Click on the `document_ingestion` experiment.
 
 +
 NOTE: Make sure you are in the `composer-ai-apps` Project.
@@ -108,31 +131,16 @@ The data ingestion process may take several minutes to complete. You can follow 
 +
 Behind the scenes this process is creating pods in the OpenShift Web Console and tailing those logs, meaning this information can also be captured by normal logging processes.
 +
-Some of the steps require a GPU which will trigger a new GPU node to be auto-scaled in your cluster, which can take several minutes.
+Some of the steps require a GPU which will trigger a new GPU node to be auto-scaled in your cluster, which can take several minutes (if not already created from before).
 +
 Feel free to start reading into the next section
 
 +
 [NOTE]
 ====
-The data ingestion pipeline currently uses a basic chunking algorithm (see the https://github.com/redhat-composer-ai/data-ingestion/blob/main/kfp/redhat-product-documentation-ingestor/ingestion-pipeline-elastic.py[code]).  We are planning future enhancements to make the pipeline more flexible and to improve the chunking algorithm.  Specifically, we are investigating the use of https://ds4sd.github.io/docling/[docling] which should lead to better results.
+The data ingestion pipeline currently uses a basic chunking algorithm (see the https://github.com/redhat-composer-ai/data-ingestion/blob/lab/kfp/redhat-product-documentation-ingestor/ingestion-pipeline-elastic.py[code]).  We are planning future enhancements to make the pipeline more flexible and to improve the chunking algorithm.  Specifically, we are investigating the use of https://ds4sd.github.io/docling/[docling] which should lead to better results.
 ====
 
-=== Testing the Vector Database from Composer AI UI
+=== To Be Continued
 
-Now that our vector database is up and running and we have ingested some documents.
-
-We have already created several Assistants that are ready to use the documents we have ingested.
-
-. Navigate to the Composer AI UI and click the `Compare` button in the top right hand corner.
-
-+
-[NOTE]
-====
-The `Compare` interface provides the ability to query multiple assistants at the same time to allow a user to compare the results.  This can be a useful feature for testing various assistants to see how the responses differ.
-====
-
-. Select the `Default Red Hat OpenShift AI Self Managed Assistant` for the left chat, and the `Default Assistant` we used before to test our LLM.  Ask a question about OpenShift AI such as "How do I create a data connection?" and see how the responses change with our RAG workflow.
-
-+
-image::04-compare.png[Compare Assistant]
+In the next section we will look at using out newly populated elastic index to create an Assistant that injects prompt information using RAG.
