@@ -10,7 +10,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/rhpds/showroom_theme_summit/releases/download/rh-1-2025/ui-bundle.zip
+    url: https://github.com/rhpds/rhdp_showroom_theme/releases/download/rh-one-2025/ui-bundle.zip
 
 runtime:
   cache_dir: ./.cache/antora
