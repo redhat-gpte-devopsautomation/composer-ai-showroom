@@ -1,0 +1,90 @@
+= Retrieval-Augmented Generation (RAG)
+
+== RAG against the Machine
+
+Now that we have loaded data on Red Hat Openshift AI into our vector database we can use that data to alter what is being sent to the LLM to enhance responses.
+
+RAG workflows with `Composer AI` has a few major advantages including:
+
+- *Focused Responses*: Enables the assistant to provide more targeted information.
+- *Access to External Data*: Allows the assistant to leverage data it wasn't trained on, including potentially private data.
+- *Source Attribution*: Provides links to the source material used to generate the response.
+
+== Connecting to our Knowledge Source
+
+First, we'll connect Composer AI to our Elasticsearch index containing the Red Hat OpenShift AI data (`red_hat_openshift_ai_self_managed_en_us_2_16`). In Composer AI, these connections are called "Knowledge Sources."
+
+. Navigate To the Knowledge Source Tab on the left hand sidebar in the https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI] and click `New Knowledge Source`
+
++
+image::06-create-knowledge-source.png[Create Knowledge Source]
+
+. Fill in the form with the following values:
+
++
+[source,yaml]
+----
+Knowledge Source Type: Elasticsearch
+Name: openshift_ai
+Description: Openshift AI
+Embedding Type: nomic
+Index: red_hat_openshift_ai_self_managed_en_us_2_16
+Host: http://elasticsearch-es-http:9200
+----
+
++
+TIP: The Username/Password fields can be left blank. Composer AI uses the user secret created by our local Elasticsearch instance by default. 
+
+== Creating a RAG Assistant
+
+Now that we have created a Knowledge Source we just need to create an Assistant to use it. 
+
+. Create a new Assistant with the following properties:
+
++
+[source,yaml]
+----
+Name: openshift_ai_assistant
+Display Name: Assistant for Openshift AI
+Knowledge Source: Openshift AI
+Model: Default LLM Connection
+----
+
++
+TIP: If you had any issues ingesting data or creating the Elasticsearch we will provided a `Openshift Container Platform Default Connection (CENTRAL)` that can be used
+
+=== Did it Work?
+
+Let's verify that our `openshift_ai_assistant` is working correctly!
+
+. Select `Assistant for Openshift AI` from the dropdown or sidebar.
+
+. Ask a question that can be found in the https://docs.redhat.com/en/documentation/red_hat_openshift_ai_cloud_service/1/html/release_notes/overview-of-openshift-ai_relnotes[Openshift AI Docs]  A good starting point is: "How do I deploy a model?"
+
+The assistant should return a response similar to the information covered in the previous section.  Critically, you'll also notice a "Sources" section at the end of the response.  When we chunked the data, we included metadata with each chunk.  One of the advantages of using RAG in Composer AI is that it returns this metadata, allowing us to cite the source of the information and enabling users to verify its accuracy.
+
+=== Compare And Contrast
+
+One of Composer AI's strengths is the ability to quickly prototype and evaluate different assistants.  The comparison feature allows you to ask a single question and receive answers from two assistants side by side.
+
+. Create a new "Basic Assistant" with no Knowledge Source
+
++
+[source,yaml]
+----
+Name: basic_assistant
+Display Name: Basic Assistant
+Model: Default LLM Connection
+----
+
+. In the Composer AI UI, select "Basic Assistant" in the left window and "Assistant for Openshift AI" in the right window.
+
+. Ask a question relevant to OpenShift AI without explicitly mentioning it. For example: "What technology are you using for pipelines?"
+
+This comparison will highlight the differences between the two assistants.
+
+NOTE: You may notice reference to "Red Hat Composer UI Project" from the Basic Assistant. This is because when a prompt is not supplied a default one is used. This can be specified either through the https://github.com/redhat-composer-ai/quarkus-llm-router/blob/main/src/main/resources/application.properties#L31[properties file] or overwritten with an environment variable.
+
+== But wait theres more...
+
+This guide covered the basic steps to set up a Generative AI solution. The following sections explore other Composer AI capabilities that you can explore in any order.

@@ -1,0 +1,48 @@
+= (Optional) Try Your Own Document
+
+This section guides you through creating your own website assistant.
+
+== Ingestion
+
+We'll use a Tekton pipeline called "Website Ingestor" to ingest data from any website
+
+. https://github.com/redhat-composer-ai/data-ingestion/blob/main/kfp/website-ingestor/ingestion-pipeline-website-local.py[See the code].
+
+Run this pipeline with a URL pointing to your chosen website(s) and load the data into a specific index in Elastic.
+
+[TIP]
+====
+* This ingests only the website you link, not a full web crawl.
+* Choose content-rich pages like blog posts or Wikipedia articles (e.g., https://ai-on-openshift.io/odh-rhoai/gitops/#notebook-images[Red Hat Blog], https://en.wikipedia.org/wiki/Dark_Souls_(video_game)[Wikipedia]).
+* Load multiple pages to see how the AI sources information.
+====
+
+== Create Website Assistant
+
+. Create a Knowledge Source named "My Knowledge Source" using the Tekton Pipeline from the previous section, and pointing to your specified index.
+. Create an Assistant named "My Assistant" using "My Knowledge Source."
+
+
+== Testing Website Assistants
+
+Ask your assistant questions related to the ingested content. Answers might not be perfect, especially for irrelevant questions. Here's how to improve them:
+
+**Ingestion Improvements:**
+
+Our ingestion pipeline has minimal knowledge of the website being ingested, and correctly tuning our ingestion pipeline will give us better data to work with allowing us for better answers. Such as:
+
+. Chunking: Break down content into manageable pieces, experimenting with different sizes to find what works best for your LLM and data.
+. Overlap: Include some overlap between chunks to preserve context and relationships between sentences/ideas.
+. Focus: Prioritize the most relevant content, removing unnecessary elements like ads or navigation menus.
+. Clean: Eliminate duplicate information to improve efficiency and avoid skewed results.
+
+
+**Prompt Engineering:**
+
+As we saw in a previous example a well crafted prompt can make a huge difference in the quality of the answer you receive.
+
+**Assistant Tuning:**
+
+Explore LLM settings (like temperature) and advanced techniques like reranking.
+
+NOTE: Assistant tuning features are under development. And we are always looking for people to help https://github.com/redhat-composer-ai[contribute to our project].

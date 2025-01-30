@@ -1,5 +1,7 @@
 = Creating An AI Assistant
 
+This is accomplished by 
+
 == What is an Assistants
 
 Assistants are at the heart of Composer AI. They're how users interact with our application.  You've already used our default assistant!
@@ -20,9 +22,9 @@ This section focuses on setting up an assistant with an existing LLM connection 
 
 A prompt is an instruction you give to an LLM. It tells the LLM what kind of response you want.
 
-In *Composer AI*, the prompt field is specifically for the system prompt. This gives the LLM overall guidelines on how to behave and respond to user queries.
+In the *Composer AI* ui, the prompt field is used for the system prompt. System prompt gives the LLM overall guidelines on how to behave and respond to user queries.
 
-System prompts are powerful tools used to customize the user experience. They can be used for simple changes, like making the LLM respond "kindly" or "talk like a pirate." But they can also be used for more complex instructions, like formatting responses in JSON or providing explanations for given answers.
+System prompts are powerful tools used to customize the user experience. They can be used for simple instructions, like making the LLM respond "kindly" or "talk like a pirate." But they can also be used for more complex instructions, like formatting responses in JSON or providing explanations for given answers.
 
 The system prompt allows you to control the experience users have with the assistant. You can even accomplish specific tasks, like drafting emails in a particular format, without needing complex instructions for every interaction as we will see in just a bit.
 
@@ -30,7 +32,7 @@ The system prompt allows you to control the experience users have with the assis
 
 To start with lets create a basic assistant with a simple System Prompt.
 
-. Navigate To the Assistants Tab on the left hand sidebar in the http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI] and click `New assistant`
+. Navigate To the Assistants Tab on the left hand sidebar in the https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI] and click `New assistant`
 
 +
 image::03-new-assistant.png[New Assistant]
@@ -65,8 +67,8 @@ Create a new Assistant with the following properties:
 
 [source,properties]
 ----
-Name: email_summary_assistant
-Display Name: Email Summary Assistant
+Name: email_drafting_assistant
+Display Name: Email Drafting Assistant
 Model: Default LLM Connection
 ----
 
