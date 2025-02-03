@@ -12,18 +12,16 @@ image::composer_ai_arch.drawio.png[Composer AI Architecture]
 
 The above is a high-level architecture diagram of what's included in Composer AI. The major components are:
 
-- https://github.com/redhat-composer-ai/cluster-gitops[Cluster Gitops Repository]-  Contains all the required OpenShift components for Composer.
+- https://github.com/redhat-composer-ai/cluster-gitops[Cluster GitOps Repository]-  Contains all the required OpenShift components for Composer.
 - https://github.com/redhat-composer-ai/appOfApps[App of Apps Repository]- Installs the Composer AI-specific components.
   * https://github.com/redhat-composer-ai/appOfApps/tree/main/chatbot-ui[Chatbot UI]- Patterfly User Interface for building and interacting with assistants
   * https://github.com/redhat-composer-ai/appOfApps/tree/main/conductor[Conductor]- Quarkus API that utilizes https://docs.langchain4j.dev/intro[LangChain4J] and the https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html[Quarkus Overlay] for AI functionality.
   * https://github.com/redhat-composer-ai/appOfApps/tree/main/data-ingestion[Data Ingestion]- KFP Pipeline that is automatically kicked off and can be used as an example for ingesting data.
-  * https://github.com/redhat-composer-ai/appOfApps/tree/main/vllm[LLM]- vLLM serving runtime utilizing a https://github.com/redhat-ai-services/modelcar-catalog[Model Sidecar] containing a Granite Model.
-
-TIP: The Model Sidecar is not used in this lab, but it's worth checking out as it can offer an easier way to integrate models initially, especially in more locked-down environments.
+  * https://github.com/redhat-composer-ai/appOfApps/tree/main/vllm[LLM]- vLLM serving runtime utilizing a https://github.com/redhat-ai-services/modelcar-catalog[Model Car] containing a Granite Model.
 
 == Today's Lab
 
-As mentioned above, when installed using the default Gitops approach or retrieved through the https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.ocp4-composer-ai.prod&utm_source=webapp&utm_medium=share-link[demo.redhat.com catalog], your cluster will come with an instance of vLLM/Granite and an Elasticsearch Vector Database preinstalled.
+As mentioned above, when installed using the default GitOps approach or retrieved through the https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.ocp4-composer-ai.prod&utm_source=webapp&utm_medium=share-link[demo.redhat.com catalog], your cluster will come with an instance of vLLM/Granite and an Elasticsearch Vector Database preinstalled.
 
 However, for this lab, we will only be including the Conductor API and the Composer AI on the provisioned cluster. This allows you to install your own instance of vLLM using Red Hat OpenShift AI and an Elasticsearch Database. You will also create new assistants using Composer AI and ingest and use data from our Red Hat documentation to more mimic match what you may be doing in a customer environment.
 
