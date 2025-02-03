@@ -28,4 +28,4 @@ Live-reload is not supported.
 The content is built using Antora, a static site generator for creating documentation sites from AsciiDoc documents.
 
 Live Version:
-https://redhat-gpte-devopsautomation.github.io/composer-ai-showroom/modules/main/index.html
+https://redhat-gpte-devopsautomation.github.io/composer-ai-showroom/modules/main/index.html 
