@@ -30,7 +30,7 @@ image::02-single-model.png[Single Model]
 +
 image::02-deploy-models.png[Deploy Models]
 
-. Enter the following information
+. Enter the following information:
 
 +
 [source,yaml]
@@ -48,6 +48,12 @@ Number of accelerators: 1
 Make deployed models available through an external route: Checked
 Require token authentication: Unchecked
 ----
+
++
+[Important]
+====
+The name of the model server must be `vllm` in order for some of the configurations in Composer AI to match up correctly.
+====
 
 +
 image::02-model-options.png[Model Options]
