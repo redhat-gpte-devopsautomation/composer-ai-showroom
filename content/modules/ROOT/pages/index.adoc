@@ -33,7 +33,7 @@ Here are some important links to help you on your journey:
 * https://rhods-dashboard-redhat-ods-applications.{openshift_cluster_ingress_domain}[OpenShift AI Dashboard]
 * https://openshift-gitops-server-openshift-gitops.{openshift_cluster_ingress_domain}[Cluster Scoped ArgoCD]
 * https://argocd-server-composer-ai-gitops.{openshift_cluster_ingress_domain}[Composer AI ArgoCD]
-* http://https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI]
+* https://chatbot-ui-composer-ai-apps.{openshift_cluster_ingress_domain}[Composer AI UI]
 
 
 == Important Credentials
