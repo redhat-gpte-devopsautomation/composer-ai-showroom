@@ -19,26 +19,12 @@ image::diy_start_piplien.png[Pipline with custom website and Elastic index]
 +
 image::diy_expriment_run.png[Pipline experiment run]
 
-. Check the expriment completed successfully
+. Track the expriment and wait for it to completed successfully. *Note: process and store task takes few mins to complete the ingestion, maybe get a coffee*
 
 +
 image::diy_view_expriment_run.png[Experiment status]
 
-. Move on to Chat Bot UI, and create a new Knowledge source based on the new vector index created in step 1. *Note: please provide the db index in lowercase*
-Also user host as _http://elasticsearch-es-http:9200_
 
-+
-image::diy_create_new_KS.png[Create new Knowledge Source]
-
-. Create a new assistant from assitants section, utlizting the knowledge source created
-
-+
-image::diy_create_new_assistant.png[Create new Assistant]
-
-. Have fun with the newly create chat bot
-
-+
-image::diy_chatbot_output.png[Chatbot response]
 
 [TIP]
 ====
@@ -50,7 +36,20 @@ image::diy_chatbot_output.png[Chatbot response]
 == Create Website Assistant
 
 . Create a Knowledge Source named "My Knowledge Source" using the Tekton Pipeline from the previous section, and pointing to your specified index.
+image::diy_create_new_KS.png[Create new Knowledge Source]
++
+
+. Move on to Chat Bot UI, and create a new Knowledge source based on the new vector index created in step 1. *Note: please provide the db index in lowercase*
+Also user host as _http://elasticsearch-es-http:9200_
+
++
 . Create an Assistant named "My Assistant" using "My Knowledge Source."
+image::diy_create_new_assistant.png[Create new Assistant]
+
++
+. Have fun with the newly create chat bot
++
+image::diy_chatbot_output.png[Chatbot response]
 
 
 == Testing Website Assistants
