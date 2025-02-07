@@ -8,7 +8,23 @@ We'll use a Tekton pipeline called "Website Ingestor" to ingest data from any we
 
 . https://github.com/redhat-composer-ai/data-ingestion/blob/main/kfp/website-ingestor/ingestion-pipeline-website-local.py[See the code].
 
-Run this pipeline with a URL pointing to your chosen website(s) and load the data into a specific index in Elastic.
+. Run this pipeline with a URL pointing to your chosen website(s) and load the data into a specific index in Elastic.
+
++
+image::diy_start_piplien.png[Pipline with custom website and Elastic index]
+
+
+. Move to RHOAI, and check under expriments section to see website ingestion expriment running.
+
++
+image::diy_expriment_run.png[Pipline experiment run]
+
+. Track the expriment and wait for it to completed successfully. *Note: process and store task takes few mins to complete the ingestion, maybe get a coffee*
+
++
+image::diy_view_expriment_run.png[Experiment status]
+
+
 
 [TIP]
 ====
@@ -20,7 +36,20 @@ Run this pipeline with a URL pointing to your chosen website(s) and load the dat
 == Create Website Assistant
 
 . Create a Knowledge Source named "My Knowledge Source" using the Tekton Pipeline from the previous section, and pointing to your specified index.
+image::diy_create_new_KS.png[Create new Knowledge Source]
++
+
+. Move on to Chat Bot UI, and create a new Knowledge source based on the new vector index created in step 1. *Note: please provide the db index in lowercase*
+Also user host as _http://elasticsearch-es-http:9200_
+
++
 . Create an Assistant named "My Assistant" using "My Knowledge Source."
+image::diy_create_new_assistant.png[Create new Assistant]
+
++
+. Have fun with the newly create chat bot
++
+image::diy_chatbot_output.png[Chatbot response]
 
 
 == Testing Website Assistants
