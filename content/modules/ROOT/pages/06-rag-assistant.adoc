@@ -87,4 +87,4 @@ NOTE: You may notice reference to "Red Hat Composer UI Project" from the Basic A
 
 == But wait theres more...
 
-This guide covered the basic steps to set up a Generative AI solution. The following sections explore other Composer AI capabilities that you can explore in any order.
+This guide covered the basic steps to set up a Generative AI solution. The next section has some other items you can try out if you still have time left in our lab.

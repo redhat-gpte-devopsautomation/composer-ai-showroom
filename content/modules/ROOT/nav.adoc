@@ -4,3 +4,4 @@
 * xref:04-elasticsearch.adoc[Elasticsearch]
 * xref:05-data-ingestion.adoc[Data Ingestion]
 * xref:06-rag-assistant.adoc[Retrieval-Augmented Generation (RAG)]
+* xref:07-diy.adoc[(Optional) Try Your Own Document]

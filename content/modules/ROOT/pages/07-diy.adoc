@@ -46,3 +46,7 @@ As we saw in a previous example a well crafted prompt can make a huge difference
 Explore LLM settings (like temperature) and advanced techniques like reranking.
 
 NOTE: Assistant tuning features are under development. And we are always looking for people to help https://github.com/redhat-composer-ai[contribute to our project].
+
+**File Upload:**
+
+A file can be uploaded with the upload button and will be automatically chunked and used as an in-memory data source similar to our Vector Database.
