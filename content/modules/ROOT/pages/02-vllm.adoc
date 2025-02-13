@@ -137,6 +137,13 @@ oc get routes.serving.knative.dev -n composer-ai-apps
 
 . Use the `Try it out` option of the `GET /v1/models` endpoint to list the models being deployed by this server.  Note that the id for our model matches the name of the model server we created in the OpenShift AI Dashboard.
 
+[WARNING]
+====
+Running into a 404 error on the OCP web console after trying this?  Let us know to help identify a bug.
+
+Possible fixes include switching wifi networks, switching to Incognito mode, or deleting cookies and cache.
+====
+
 === Testing the model from Composer AI UI
 
 Now that we have done some basic testing we are ready to try the model from inside of the Composer AI Studio UI.
@@ -148,10 +155,7 @@ Our Composer instance is already setup to point to the vLLM endpoint we created 
 +
 image::02-chatbot-route.png[Chatbot Route]
 
-. In the top left hand corner select the `Default Assistant`
-
-+
-image::02-default-assistant.png[Default Assistant]
+. Click on the Assistants on the left hand side, and choose the option to `Create Assistant`.  Enter the name "Default Assistant", select the default LLM, and click `Create` without editing any of the fields.
 
 . Ask a question in the UI to verify that the LLM is able to respond.
 
