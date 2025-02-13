@@ -11,7 +11,7 @@ We'll use a Tekton pipeline called "Website Ingestor" to ingest data from any we
 . Run this pipeline with a URL pointing to your chosen website(s) and load the data into a specific index in Elastic.
 
 +
-image::diy_start_piplien.png[Pipline with custom website and Elastic index]
+image::diy_start_pipline.png[Pipline with custom website and Elastic index]
 
 
 . Move to RHOAI, and check under expriments section to see website ingestion expriment running.
